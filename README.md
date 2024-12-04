@@ -7,6 +7,16 @@ but if that server gets down, well, you go and start it at another server etc.
 
 As we all hate manually doing things, single-beat automates this process.
 
+Create WHL
+---------
+Execute the folling:
+
+```bash
+python setup.py bdist_wheel
+```
+
+The resulting file is at the "dist" directory.
+
 
 How
 ---------

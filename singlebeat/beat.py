@@ -28,6 +28,7 @@ class Config(object):
     REDIS_SENTINEL_MASTER = env('REDIS_SENTINEL_MASTER', 'mymaster')
     REDIS_SENTINEL_DB = env('REDIS_SENTINEL_DB', 0)
     REDIS_SENTINEL_PASSWORD = env('REDIS_SENTINEL_PASSWORD', None)
+    REDIS_SENTINEL_TIMEOUT = env('REDIS_SENTINEL_TIMEOUT', 0.5, float)
     IDENTIFIER = env('IDENTIFIER', None)
     LOCK_TIME = env('LOCK_TIME', 5, int)
     INITIAL_LOCK_TIME = env('INITIAL_LOCK_TIME', LOCK_TIME * 2, int)
@@ -85,7 +86,7 @@ class Config(object):
             sentinels = [tuple(s.split(':')) for s in self.REDIS_SENTINEL.split(';')]
             self._sentinel = redis.sentinel.Sentinel(sentinels,
                                                      db=self.REDIS_SENTINEL_DB,
-                                                     socket_timeout=0.1,
+                                                     socket_timeout=self.REDIS_SENTINEL_TIMEOUT,
                                                      sentinel_kwargs={"password": self.REDIS_SENTINEL_PASSWORD}
                                                      )
         else:
